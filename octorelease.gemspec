@@ -5,7 +5,7 @@ require 'octorelease/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "octorelease"
-  spec.version       = Octorelease::VERSION
+  spec.version       = OctoRelease::VERSION
   spec.authors       = ["Gosuke Miyashita"]
   spec.email         = ["gosukenator@gmail.com"]
   spec.summary       = %q{Octorelease.}
@@ -18,6 +18,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_runtime_dependency "octokit"
+  spec.add_runtime_dependency "hub"
+  
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
 end
