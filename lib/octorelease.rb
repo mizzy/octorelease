@@ -39,7 +39,7 @@ task "octorelease" => "release" do
       title = Octokit.pull_request(repo, pull_id).title
       description << "* [#{title}](#{url})"
 
-      Octokit.create_pull_request_comment(repo, pull_id, "Released as #{current_version}")
+      Octokit.add_comment(repo, pull_id, "Released as #{current_version}.")
       Bundler.ui.confirm "Added a release comment to the pull request ##{pull_id}"
     end
   end
@@ -50,7 +50,7 @@ task "octorelease" => "release" do
     {:body => description.join("\n")}
   )
 
-  Bundler.ui.confirm "Created release #{current_version}."
+  Bundler.ui.confirm "Created a release #{current_version}."
   Bundler.ui.confirm "https://github.com/#{repo}/releases/tag/#{current_version}"
 
 
