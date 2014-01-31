@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Octorelease::VERSION
   spec.authors       = ["Gosuke Miyashita"]
   spec.email         = ["gosukenator@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Octorelease.}
+  spec.description   = %q{Octorelease.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
