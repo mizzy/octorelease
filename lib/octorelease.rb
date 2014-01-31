@@ -34,9 +34,13 @@ task "octorelease" => "release" do
   description = []
   log.split(/commit/).each do |lines|
     lines.match(/Merge pull request \#(\d+)/) do |m|
-      url = "https://github.com/#{repo}/pull/#{m[1]}"
-      title = Octokit.pull_request(repo, m[1]).title
+      pull_id = m[1]
+      url = "https://github.com/#{repo}/pull/#{pull_id}"
+      title = Octokit.pull_request(repo, pull_id).title
       description << "* [#{title}](#{url})"
+
+      Octokit.create_pull_request_comment(repo, pull_id, "Released as #{current_version}")
+      Bundler.ui.confirm "Added a release comment to the pull request ##{pull_id}"
     end
   end
 
@@ -46,6 +50,8 @@ task "octorelease" => "release" do
     {:body => description.join("\n")}
   )
 
-  Bundler.ui.confirm "Release #{current_version} created."
+  Bundler.ui.confirm "Created release #{current_version}."
   Bundler.ui.confirm "https://github.com/#{repo}/releases/tag/#{current_version}"
+
+
 end
