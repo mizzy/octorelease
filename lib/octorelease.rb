@@ -20,18 +20,18 @@ task "octorelease" => "release" do
     c.access_token = token
   end
 
-  current_version  = "v#{Bundler::GemHelper.new.gemspec.version.to_s}"
+  current_version  = Bundler::GemHelper.new.gemspec.version
   previous_version = Gem::Version.create("0.0.0")
   `git tag`.split(/\n/).each do |tag|
-    break if tag == current_version
     tag.gsub!(/^v/, "")
     version = Gem::Version.create(tag)
-    if previous_version < version
+    if previous_version < version && version < current_version
       previous_version = version
     end
   end
 
   previous_version = "v#{previous_version.to_s}"
+  current_version  = "v#{current_version.to_s}"
 
   log = `git log #{previous_version}..#{current_version} --grep=Merge`
 
